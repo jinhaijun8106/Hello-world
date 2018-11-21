@@ -1,0 +1,74 @@
+=====================how to use git=====================
+git clone  git://git.qrd.qualcomm.com/platform/system/wlan/compat-wireless.git 
+git branch -r
+git checkout -b ics_qrd origin/ics_qrd
+git log Makefile
+git show b93a82ffdf070c3972603fe322952b3af561aa9a >tmp1
+
+How to create patches:
+I have created two patches, they are similar with original. The commands:
+$cd kernel
+$ git am 0004-kernel-config-changes-to-compile-compat-wireless.patch              (am the original patch)
+$ git reset -–soft HEAD^                                  (pending the previous am to be commit)
+$vi *file*                                  (edit the file)
+$git commit –c –m “kernel config changes to compile compat-wireless”                 (use a new commit id to apply the previous patch and new edit, git commit –c –m ORIG_HEAD will use the original HEADs)
+$git format-patch HEAD^..HEAD                                                   (the 0001-kernel-config-changes-to-compile-compat-
+wireless.patch will be created)
+
+
+1 git clone ssh://build@kamboji.users.atheros.com/public/scm/ccx/hostap-ccx.git
+2 git branch 
+3 git  branch -r
+4 git checkout -b wapi origin/wapi
+5 git branch
+6 git blame wpa_supplciant/wpa_wpa_supplicant.c
+7 git log wpa_supplciant/wpa_wpa_supplicant.c
+7 git format-patch master..wapi
+8 git show --format=fuller a5ecea0ab06d863b0d1f6cc841d16f1c2028127a
+9 repo forall -c "git checkout -b AU_LINUX_ANDROID_JB_REL.04.01.01.02.091  refs/tags/AU_LINUX_ANDROID_JB_REL.04.01.01.02.091"
+10  git -commit -e -s 
+11 git checkout 1b607b2e1bd4ab7e9d9be2756400e125b4c48c2d; git branch test
+12 git commit --amend         (change the latest comments)
+13 git branch -d dev_test   (remove one branch)
+
+
+Git send email:
+1. git send-email is included in an individual package, named "git-email":
+$ sudo apt-get install git-email
+
+3. Start a new branch to do any dev work:
+$ dev_branch=fix-warning-for-string-format
+$ git branch $dev_branch
+$ git checkout $dev_branch
+$ vim source.c
+$ git add source.c
+$ git commit -s -m "Add format strings for bb_error_msg_and_die"
+
+4. Format a patch and send it out to the receiver:
+$ git format-patch -C -n master..$dev_branch
+
+1. git send-email \
+  --suppress-cc=all \
+  --smtp-server=qcmail1.qualcomm.com \
+  --smtp-server-port=587 \
+  --smtp-encryption=tls \
+  --smtp-user=MYUSERNAME \
+  --to=ath6kl-devel@qualcomm.com \
+  my-feature-1
+2. git send-email \
+  --suppress-cc=all \
+  --smtp-server=qcmail1.qualcomm.com \
+  --smtp-server-port=587 \
+  --smtp-encryption=tls \
+  --smtp-user=nhjin\
+  --to=nhjin@qualcomm.com \
+  0001-add-max-num-station-config-from-driver.patch
+3. git send-email \
+  --suppress-cc=all \
+  --smtp-server=qcmail1.qualcomm.com \
+  --smtp-server-port=587 \
+  --smtp-encryption=tls \
+  --smtp-user=nhjin\
+  --to=kvalo@adurom.com \
+0001-Implement-throughput-trace-feature.patch
+
