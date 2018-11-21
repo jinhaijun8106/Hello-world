@@ -72,3 +72,5 @@ $ git format-patch -C -n master..$dev_branch
   --to=kvalo@adurom.com \
 0001-Implement-throughput-trace-feature.patch
 
+
+git config --global core.editor "vim"
